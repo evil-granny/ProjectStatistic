@@ -64,4 +64,4 @@ extensions:
 Process finished with exit code 0
 
 ```
-![GUI](src\main\resources\gui.png)
+![GUI](https://github.com/evil-granny/ProjectStatistic/blob/master/src/main/resources/gui.png)
