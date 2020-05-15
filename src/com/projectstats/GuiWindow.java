@@ -11,7 +11,7 @@ class GuiWindow extends Window {
 
     GuiWindow(String dir) {
         super(dir);
-        frame = new JFrame("projstats - " + dir);
+        frame = new JFrame("projectstats - " + dir);
         fileChooser = new JFileChooser(dir);
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooseBtn = new JButton(dir);
@@ -60,9 +60,9 @@ class GuiWindow extends Window {
     @Override
     void add(String name, List<String[]> list) {
         add(name, "");
-        list.stream().limit(10).forEach(arr -> {
-            add("  ", String.format("%s (%s)", arr[0], arr[1]));
-        });
+        list.stream()
+                .limit(10)
+                .forEach(arr -> add("  ", String.format("%s (%s)", arr[0], arr[1])));
         if (list.size() > 10) {
             int other = list.stream().skip(10).mapToInt(i -> Integer.parseInt(i[1])).sum();
             add("  [other]: ", other);

@@ -20,6 +20,8 @@ class Walker {
     private boolean list;
     private boolean list_skipped;
     private Map<String, Integer> extensions;
+    private static final String IS_SKIPPED = " is skipped";
+    private static final String IS_NOT_SKIPPED = " is not skipped";
 
     Walker(String dir) {
         this.dir = dir;
@@ -169,15 +171,15 @@ class Walker {
 
     static void checkDir(String dir) {
         if (skipDirs.contains(dir)) {
-            Printer.println(dir.concat(" is skipped"));
+            Printer.println(dir.concat(IS_SKIPPED));
         } else {
-            Printer.println(dir.concat(" is not skipped"));
+            Printer.println(dir.concat(IS_NOT_SKIPPED));
         }
     }
 
     static void checkFile(String file) {
         if (skipFiles.contains(file)) {
-            Printer.println(file.concat(" is skipped"));
+            Printer.println(file.concat(IS_SKIPPED));
             return;
         }
 
@@ -193,9 +195,9 @@ class Walker {
             e.printStackTrace();
         }
         if (isBinary) {
-            Printer.println(file.concat(" is skipped"));
+            Printer.println(file.concat(IS_SKIPPED));
         } else {
-            Printer.println(file.concat(" is not skipped"));
+            Printer.println(file.concat(IS_NOT_SKIPPED));
         }
     }
 
