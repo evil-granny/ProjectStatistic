@@ -1,0 +1,19 @@
+//maven.apache.org/POM/4.0.0"
+//www.w3.org/2001/XMLSchema-instance"
+//maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+//$MODULE_DIR$/target/classes" />
+//$MODULE_DIR$/target/test-classes" />
+//$MODULE_DIR$">
+//$MODULE_DIR$/src/main/java" isTestSource="false" />
+//$MODULE_DIR$/src/main/resources" type="java-resource" />
+//$MODULE_DIR$/src/test/java" isTestSource="true" />
+//$MODULE_DIR$/target" />
+// action listener for chooseBtn
+// action listener for fileChooser
+//.*|/\\*((.|\\n)(?!=*/))+\\*/");
+// Local variable files hides a class field. Therefore altered the variable name
+//test comment
+/*my comment*/
+// don't show progressbar if 'list_skipped' is true
+//                System.out.println(classes.get(i).getSimpleName());
+//                        System.out.println(filed.getName());

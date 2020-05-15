@@ -1,5 +1,7 @@
 package com.projectstats;
 
+import static com.projectstats.Walker.getConstantsFromClass;
+
 public class Main {
     static boolean cli = true;
     static boolean gui = true;
@@ -9,6 +11,7 @@ public class Main {
     static boolean no_ext = false;
 
     public static void main(String[] args) {
+        getConstantsFromClass();
         String path = System.getProperty("user.dir");
         for (String arg : args) {
             switch (arg) {

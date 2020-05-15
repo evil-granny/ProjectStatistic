@@ -1,9 +1,14 @@
 package com.projectstats;
 
+import org.apache.commons.lang3.ClassUtils;
+
 import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 class Walker {
     private long size = 0L;
@@ -18,13 +23,16 @@ class Walker {
     private static List<String> skipDirs = new ArrayList<>(List.of(".git", "node_modules"));
     private static List<String> skipFiles = new ArrayList<>();
     private static List<String> skipExt = new ArrayList<>();
+    private static List<String> constants = new ArrayList<>();
     private boolean wait;
     private boolean list;
     private boolean list_skipped;
     private Map<String, Integer> extensions;
     private static final String IS_SKIPPED = " is skipped";
     private static final String IS_NOT_SKIPPED = " is not skipped";
+    private static final String OUTPUT_FILE_NAME_FOR_COMMENTS = "comments.txt";
     private static Pattern patternForComments = Pattern.compile("//.*|/\\*((.|\\n)(?!=*/))+\\*/");
+    private static List<String> comments = new ArrayList<>();
 
     Walker(String dir) {
         this.dir = dir;
@@ -65,16 +73,20 @@ class Walker {
         long fileLines = 0;
         long fileEmptyLines = 0;
         boolean isBinary = false;
-        try (BufferedReader reader = new BufferedReader(new FileReader(name))) {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(name));
+             BufferedWriter writter = new BufferedWriter(new FileWriter(OUTPUT_FILE_NAME_FOR_COMMENTS))) {
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                 if (line.isBlank())
                     fileEmptyLines++;
 
                 Matcher matcher = patternForComments.matcher(line);
+                /*my comment*/
                 while (matcher.find()) {
-                    System.out.println("Comments: ");
-                    System.out.println(matcher.group());
+                    comments.add(matcher.group());
+                    comments.add("\n");
                 }
+                writter.close();
 
                 fileLines++;
                 if (charsBinary(line)) {
@@ -82,6 +94,16 @@ class Walker {
                     break;
                 }
             }
+        }
+
+        try (BufferedWriter writter = new BufferedWriter(new FileWriter(OUTPUT_FILE_NAME_FOR_COMMENTS))) {
+            comments.forEach(x -> {
+                try {
+                    writter.write(x);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         }
 
         String extension = getExtension(name);
@@ -114,6 +136,29 @@ class Walker {
             this.extensions.put(extension, this.extensions.get(extension) + 1);
         } else {
             this.extensions.put(extension, 1);
+        }
+    }
+
+    public static void getConstantsFromClass() {
+        Field field = null;
+        try {
+            field = ClassLoader.class.getDeclaredField("classes");
+            field.setAccessible(true);
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            List<Class> classes = (List<Class>) field.get(classLoader);
+
+            for (int i = 3; i < classes.size(); i++) {
+//                System.out.println(classes.get(i).getSimpleName());
+                Field[] fields = classes.get(i).getDeclaredFields();
+                for (Field filed : fields) {
+                    if (Modifier.isFinal(filed.getModifiers())) {
+                        constants.add(filed.getName());
+//                        System.out.println(filed.getName());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -168,6 +213,14 @@ class Walker {
 
     String getDirectory() {
         return this.dir;
+    }
+
+    public static List<String> getConstants() {
+        return constants;
+    }
+
+    public static void setConstants(List<String> constants) {
+        Walker.constants = constants;
     }
 
     List<String[]> getExtensions() {

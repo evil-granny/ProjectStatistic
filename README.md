@@ -39,20 +39,29 @@ skipped: D:\JavaProjects\projstats\.git
 skipped: D:\JavaProjects\projstats\.idea
 ...
 name: projstats
-size: 21,89 KiB / 22,42 KB
-files: 14
-folders: 9
-lines total: 670
-empty lines: 101
-not empty lines: 569
-skipped files: 7
+size: 27,37 KiB / 28,03 KB
+files: 20
+folders: 25
+lines total: 809
+empty lines: 114
+constants: [TYPE_VARIABLES, IS_SKIPPED, IS_NOT_SKIPPED, OUTPUT_FILE_NAME_FOR_COMMENTS]
+type of variables: [int, boolean, String, long]
+not empty lines: 695
+skipped files: 9
 extensions: 
   java (7)
+  lst (3)
+  xml (2)
+  txt (1)
   [none] (1)
   gitignore (1)
-  xml (1)
   md (1)
   yml (1)
   mf (1)
   iml (1)
+  properties (1)
+
+Process finished with exit code 0
+
 ```
+![GUI](src\main\resources\gui.png)

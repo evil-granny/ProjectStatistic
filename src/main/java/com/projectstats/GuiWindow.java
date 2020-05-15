@@ -18,7 +18,7 @@ class GuiWindow extends Window {
         chooseBtn.setToolTipText("Choose Directory");
         chooseBtn.setBounds(20, 5, 350, 26);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 600);
+        frame.setSize(800, 700);
         frame.setLayout(null);
         frame.add(chooseBtn);
 
@@ -53,7 +53,7 @@ class GuiWindow extends Window {
     @Override
     void add(String name, String text) {
         JLabel label = new JLabel(name + text);
-        label.setBounds(20, nextLabel(), 350, 26);
+        label.setBounds(20, nextLabel(), 1050, 26);
         frame.add(label);
     }
 
