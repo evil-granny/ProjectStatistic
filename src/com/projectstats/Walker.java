@@ -2,6 +2,8 @@ package com.projectstats;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class Walker {
     private long size = 0L;
@@ -22,6 +24,7 @@ class Walker {
     private Map<String, Integer> extensions;
     private static final String IS_SKIPPED = " is skipped";
     private static final String IS_NOT_SKIPPED = " is not skipped";
+    private static Pattern patternForComments = Pattern.compile("//.*|/\\*((.|\\n)(?!=*/))+\\*/");
 
     Walker(String dir) {
         this.dir = dir;
@@ -38,18 +41,18 @@ class Walker {
         // Local variable files hides a class field. Therefore altered the variable name
         File[] fileList = new File(dir).listFiles();
 
-        for (final File f : fileList) {
-            if (f.isDirectory()) {
-                if (!skipDirs.contains(f.getName())) {
+        for (final File file : fileList) {
+            if (file.isDirectory()) {
+                if (!skipDirs.contains(file.getName())) {
                     this.folders++;
-                    walk(f.getAbsolutePath());
+                    walk(file.getAbsolutePath());
                 } else if (list_skipped) {
-                    Printer.printf("%nskipped: %s", f.getAbsolutePath());
+                    Printer.printf("%nskipped: %s", file.getAbsolutePath());
                 }
             }
-            if (f.isFile()) {
+            if (file.isFile()) {
                 try {
-                    walkInFile(f.getAbsolutePath(), f.length());
+                    walkInFile(file.getAbsolutePath(), file.length());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -58,6 +61,7 @@ class Walker {
     }
 
     private void walkInFile(String name, long size) throws IOException {
+        //test comment
         long fileLines = 0;
         long fileEmptyLines = 0;
         boolean isBinary = false;
@@ -65,6 +69,13 @@ class Walker {
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                 if (line.isBlank())
                     fileEmptyLines++;
+
+                Matcher matcher = patternForComments.matcher(line);
+                while (matcher.find()) {
+                    System.out.println("Comments: ");
+                    System.out.println(matcher.group());
+                }
+
                 fileLines++;
                 if (charsBinary(line)) {
                     isBinary = true;

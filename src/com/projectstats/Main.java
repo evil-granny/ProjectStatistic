@@ -9,10 +9,6 @@ public class Main {
     static boolean no_ext = false;
 
     public static void main(String[] args) {
-        System.out.println("Args: ");
-        for (String s: args) {
-            System.out.println(s);
-        }
         String path = System.getProperty("user.dir");
         for (String arg : args) {
             switch (arg) {
