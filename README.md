@@ -2,31 +2,31 @@
 Count source lines of code
 ## Options
 
-* `--cli` *Run without GUI*
+* `--cli` Run without GUI
 
-* `--gui` *Run without CLI*
+* `--gui` Run without CLI
 
-* `--wait` *Run without progressbar*
+* `--list` List files
 
-* `--list` *List files*
+* `--wait` Run without progressbar
 
-* `--list-skipped` *List skipped files and dirs*
+* `--list-skipped` List skipped files and dirs
 
-* `--list-ext=ext` *List files with given extension*
+* `--list-ext=ext` List files with given extension
 
-* `--check-dir=dir` *Check if directory is skipped*
+* `--check-dir=dir` Check if directory is skipped
 
-* `--check-file=file` *Check if file is skipped (absolute path)*
+* `--check-file=file` Check if file is skipped (absolute path)
 
-* `--skip-dir=dir` *Skip directory*
+* `--skip-file=file` Skip file (absolute path)*
 
-* `--skip-file=file` *Skip file (absolute path)*
+* `--skip-dir=dir` Skip directory
 
-* `--skip-ext=ext` *Skip files with given extension*
+* `--skip-ext=ext` Skip files with given extension
 
-* `--no-ext` *Don't show extensions*
+* `--no-ext` Don't show extensions
 
-* `--help` *Print help*
+* `--help` Print help
 
 ## Example
 ### Program arguments
